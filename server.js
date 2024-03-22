@@ -30,21 +30,26 @@ app.get("/sensors", async (req, res) => {
 
 
 
-//updating database esp 8266/32
+
+
+//updating database esp 8266
 app.post('/edit-sensor', async (req, res) => {
-    const { sensorID, temp, fire, smoke } = req.body;
+    const { sensorID, fire} = req.body;
 
     try {
-        await SensorModel.updateOne({ sensorID }, { temp },{ fire }, { smoke });
+        await SensorModel.updateOne({ sensorID }, { fire });
 
-        // console.log(`Sensor ID: ${sensorID}, Fuite de gaz: ${étatGaz}`);
+        console.log(`Detecteur ID: ${sensorID}, Fuite de gaz: ${fire}`);
         res.json({ message: 'Data received and database updated successfully' });
+
     }
     catch (error) {
         console.error('Error updating database:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
 
 
 
